@@ -1,54 +1,132 @@
-# React + TypeScript + Vite
+# ReFlowML Recommender Admin
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Административная панель для управления рекомендательной ML-системой, позволяющая настраивать, обучать и отслеживать работу рекомендательных алгоритмов.
 
-Currently, two official plugins are available:
+## Возможности
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🔄 Создание и редактирование конфигураций для рекомендательных моделей
+- 🚀 Запуск обучения моделей с визуальной анимацией прогресса
+- 📊 Мониторинг производительности моделей
+- 📋 Интерактивная фильтрация наборов данных
+- 🌐 Адаптивный интерфейс для мобильных и десктопных устройств
 
-## Expanding the ESLint configuration
+## Технологический стек
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Frontend**: React, TypeScript, Vite
+- **UI компоненты**: shadcn/ui, Tailwind CSS, Lucide Icons
+- **Состояние**: TanStack Query (React Query)
+- **Маршрутизация**: React Router
+- **Валидация форм**: React Hook Form, Zod
+- **API интеграция**: Kubb для генерации клиентов API
+- **Уведомления**: Sonner Toast
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
+## Особенности использования Kubb
+
+В проекте активно используется [Kubb](https://github.com/kubb-project/kubb) - для генерации клиентов API на основе OpenAPI-спецификаций. Kubb автоматически создает:
+
+- Строго типизированные хуки на основе React Query
+- Типы моделей, основанные на схемах API
+- Типобезопасные запросы с валидацией параметров
+
+Конфигурация Kubb находится в файле `kubb.config.ts`:
+
+```typescript
+import { defineConfig } from '@kubb/core'
+import createSwagger from '@kubb/swagger'
+import createSwaggerTanstackQuery from '@kubb/swagger-tanstack-query'
+import createSwaggerTS from '@kubb/swagger-ts'
+import createSwaggerZod from '@kubb/swagger-zod'
+
+export default defineConfig({
+  root: '.',
+  input: {
+    path: 'http://77.2232.37.2532:80030/openapi.json',
+  },
+  output: {
+    path: './src/shared/api/generated',
+    clean: true,
+  },
+  hooks: {
+    done: ['prettier --write "src/shared/api/generated/**/*.{ts,tsx}"'],
+  },
+  plugins: [
+    // API документация
+    createSwagger({
+      output: false,
+    }),
+    
+    // TypeScript типы
+    createSwaggerTS({
+      output: {
+        path: './types',
+      },
+    }),
+    
+    // Zod схемы для валидации запросов/ответов
+    createSwaggerZod({
+      output: {
+        path: './schemas',
+      },
+    }),
+    
+    // React Query хуки для работы с API
+    createSwaggerTanstackQuery({
+      output: {
+        path: './',
+      },
+      client: {
+        // Настройка HTTP-клиента
+        implementation: 'axios',
+        instance: {
+          path: '../../api-instance/instance',
+          default: true, 
+        }
+      },
+    }),
   ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
 })
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+## Установка и запуск
+
+### Требования
+
+- Node.js 22+ или выше
+- PNPM 8.x или выше
+
+### Установка зависимостей
+
+```bash
+pnpm install
 ```
+
+### Генерация API-клиента
+
+```bash
+pnpm kubb
+```
+
+### Запуск проекта в режиме разработки
+
+```bash
+pnpm dev
+```
+
+### Сборка для production
+
+```bash
+pnpm build
+```
+
+## Работа с рекомендательной системой
+
+1. **Создание конфигурации**: Установите параметры обучения модели через удобные формы
+2. **Настройка фильтров**: Выберите данные для обучения модели с помощью интерактивных фильтров
+3. **Запуск обучения**: Запустите процесс обучения модели с анимированным отображением прогресса
+4. **Мониторинг**: Отслеживайте статус и производительность моделей в реальном времени
+
+## Лицензия
+
+MIT
