@@ -1,0 +1,28 @@
+'use client';
+import { createMedia } from '@artsy/fresnel';
+
+export enum Display {
+  'xs' = 'xs',
+  'sm' = 'sm',
+  'md' = 'md',
+  'lg' = 'lg',
+  'xl' = 'xl',
+  'xl2' = '2xl',
+}
+
+export const breakpoints: Record<Display, number> = {
+  [Display.xs]: 0,
+  [Display.sm]: 640,
+  [Display.md]: 768,
+  [Display.lg]: 1024,
+  [Display.xl]: 1280,
+  [Display.xl2]: 1536,
+};
+
+const { MediaContextProvider, Media, createMediaStyle } = createMedia({
+  breakpoints,
+});
+
+const mediaStyles = createMediaStyle();
+
+export { Media, MediaContextProvider, mediaStyles, createMediaStyle }; 

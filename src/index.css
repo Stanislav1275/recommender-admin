@@ -1,0 +1,297 @@
+@import "tailwindcss";
+
+:root {
+  /* Базовые цвета темы */
+  --r-background: 220 16% 13%;
+  --r-foreground: 220 16% 92%;
+  --r-primary: 220 60% 56%;
+  --r-primary-foreground: 220 10% 98%;
+  --r-muted: 220 10% 22%;
+  --r-muted-foreground: 220 10% 64%;
+  --r-border: 220 25% 35%; /* Еще темнее и насыщеннее граница */
+
+  /* Компонентные цвета */
+  --r-accent: 220 28% 22%;
+  --r-accent-foreground: 220 10% 98%;
+  --r-card: 220 18% 16%;
+  --r-card-foreground: 220 16% 92%;
+  --r-popover: 220 20% 18%; /* Более темный цвет для поповеров */
+  --r-popover-foreground: 220 16% 92%;
+  
+  /* Хедер и навигация */
+  --r-header: 222 22% 20%; /* Новый цвет для заголовков */
+  --r-header-foreground: 220 16% 98%;
+  --r-mobile-nav: 224 24% 22%; /* Цвет для мобильной навигации */
+  --r-mobile-nav-foreground: 220 16% 96%;
+  --r-active-nav: 220 70% 60%; /* Активный элемент навигации */
+  
+  /* Дополнительные компоненты */
+  --r-dialog: 220 18% 16%;
+  --r-dialog-foreground: 220 16% 92%;
+  --r-tooltip: 220 18% 16%;
+  --r-tooltip-foreground: 220 16% 92%;
+  --r-dropdown: 220 20% 18%; /* Согласованность с поповерами */
+  --r-dropdown-foreground: 220 16% 92%;
+  --r-select: 220 20% 18%;
+  --r-select-foreground: 220 16% 92%;
+  
+  /* Статусы */
+  --r-destructive: 0 80% 60%;
+  --r-destructive-foreground: 0 0% 98%;
+  --r-success: 142 70% 45%;
+  --r-success-foreground: 142 10% 98%;
+  --r-warning: 38 92% 50%;
+  --r-warning-foreground: 38 10% 98%;
+  --r-info: 220 70% 56%;
+  --r-info-foreground: 220 10% 98%;
+  
+  /* Интерактивные состояния */
+  --r-ring: 220 70% 60%; /* Более яркое и насыщенное кольцо фокуса */
+  --r-hover: 220 28% 26%; /* Немного светлее при наведении */
+  --r-focus: 220 60% 56%;
+  --r-input: 220 14% 25%; /* Более заметные поля ввода */
+  
+  /* Анимация лоадера */
+  --loader-primary: 220 60% 56%;
+  --loader-secondary: 220 10% 32%;
+  --loader-text: 220 60% 56%;
+  --loader-background: hsl(var(--r-background) / 0.98);
+  --loader-blur: 6px;
+
+  /* Радиусы */
+  --r-radius-xs: 4px;
+  --r-radius-sm: 6px;
+  --r-radius-md: 8px;
+  --r-radius-lg: 12px;
+  --r-radius-full: 9999px;
+
+  /* Тени */
+  --shadow-primary: 0 2px 12px -2px hsl(220 60% 56%/0.12); /* Более заметная тень */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.08);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.14), 0 2px 4px -2px rgb(0 0 0 / 0.12);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.14), 0 4px 6px -4px rgb(0 0 0 / 0.12);
+}
+
+@keyframes orbit-rotate {
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    transform: translate(-50%, -100%) rotate(0deg) scale(1);
+    opacity: 0.9;
+  }
+  25% {
+    transform: translate(-50%, -50%) rotate(8deg) scale(1.05);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, 0%) rotate(0deg) scale(1);
+    opacity: 0.9;
+  }
+  75% {
+    transform: translate(-50%, 50%) rotate(-8deg) scale(0.95);
+    opacity: 0.8;
+  }
+}
+
+.animate-wave {
+  animation: wave 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@layer base {
+  body {
+    background: hsl(var(--r-background));
+    color: hsl(var(--r-foreground));
+  }
+  
+  /* Глобальные стили для границ */
+  * {
+    border-color: hsl(var(--r-border));
+  }
+  
+  /* Кольца фокуса для всех интерактивных элементов */
+  *:focus-visible {
+    outline-color: hsl(var(--r-ring));
+    outline-offset: 2px;
+    outline-width: 2px;
+  }
+
+  .card {
+    background: hsl(var(--r-card));
+    border-color: hsl(var(--r-border));
+  }
+  
+  /* Применение переменных к компонентам shadcn/ui */
+  [data-radix-popper-content-wrapper] {
+    background-color: hsl(var(--r-popover));
+    color: hsl(var(--r-popover-foreground));
+    border-color: hsl(var(--r-border));
+  }
+  
+  .select-content {
+    background-color: hsl(var(--r-select));
+    color: hsl(var(--r-select-foreground));
+    border-color: hsl(var(--r-border));
+  }
+  
+  .dialog-content {
+    background-color: hsl(var(--r-dialog));
+    color: hsl(var(--r-dialog-foreground));
+    border-color: hsl(var(--r-border));
+  }
+  
+  .tooltip {
+    background-color: hsl(var(--r-tooltip));
+    color: hsl(var(--r-tooltip-foreground));
+  }
+  
+  /* Стили хедера и навигации */
+  nav.border-b {
+    background-color: hsl(var(--r-header));
+    color: hsl(var(--r-header-foreground));
+    border-color: hsl(var(--r-border));
+  }
+  
+  /* Мобильная навигация */
+  .fixed.bottom-0.border-t {
+    background-color: hsl(var(--r-mobile-nav));
+    color: hsl(var(--r-mobile-nav-foreground));
+    border-color: hsl(var(--r-border));
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Боковая панель */
+  aside.bg-card {
+    background-color: hsl(var(--r-card));
+    border-color: hsl(var(--r-border));
+  }
+  
+  /* Активные состояния навигации */
+  .text-primary {
+    color: hsl(var(--r-active-nav)) !important;
+  }
+  
+  /* Улучшенные стили для активных элементов навигации */
+  a.text-primary,
+  button.text-primary,
+  .bg-accent.text-foreground {
+    position: relative;
+  }
+  
+  a.text-primary::after,
+  button.text-primary::after,
+  .bg-accent.text-foreground::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 2px;
+    background-color: hsl(var(--r-active-nav));
+    border-radius: 1px;
+  }
+  
+  /* Кнопки навигации при наведении */
+  nav a:hover,
+  nav button:hover {
+    color: hsl(var(--r-active-nav)) !important;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  /* Стили для полей ввода и фокуса */
+  input, textarea, select {
+    border-color: hsl(var(--r-border)) !important;
+  }
+  
+  input:focus, textarea:focus, select:focus {
+    border-color: hsl(var(--r-ring)) !important;
+    box-shadow: 0 0 0 2px hsl(var(--r-ring) / 0.3) !important;
+  }
+  
+  /* Стили для кнопок при фокусе */
+  button:focus-visible {
+    box-shadow: 0 0 0 2px hsl(var(--r-background)), 0 0 0 4px hsl(var(--r-ring)) !important;
+    outline: none !important;
+  }
+  
+  /* Стили для границ элементов пользовательского интерфейса */
+  .border {
+    border-color: hsl(var(--r-border)) !important;
+  }
+  
+  .border-t, .border-b, .border-l, .border-r {
+    border-color: hsl(var(--r-border)) !important;
+  }
+  
+  /* Стили для кольца */
+  .ring {
+    --tw-ring-color: hsl(var(--r-ring)) !important;
+    --tw-ring-offset-color: hsl(var(--r-background)) !important;
+  }
+}
+
+/* Кастомные утилиты */
+@layer utilities {
+  .perspective-500 {
+    perspective: 500px;
+  }
+  
+  .bg-ash-gradient {
+    background: linear-gradient(
+      45deg,
+      hsl(var(--r-background)),
+      hsl(220 14% 20%)
+    );
+  }
+
+  .border-ash {
+    border-color: hsl(var(--r-border));
+  }
+
+  .text-steel {
+    color: hsl(var(--r-primary));
+  }
+  
+  /* Новые утилиты */
+  .bg-header {
+    background-color: hsl(var(--r-header));
+  }
+  
+  .bg-mobile-nav {
+    background-color: hsl(var(--r-mobile-nav));
+  }
+  
+  .text-active-nav {
+    color: hsl(var(--r-active-nav));
+  }
+  
+  .border-highlight {
+    border-color: hsl(var(--r-active-nav) / 0.5);
+  }
+  
+  .ring-highlight {
+    --tw-ring-color: hsl(var(--r-ring) / 0.4);
+  }
+  
+  /* Задержки для анимаций */
+  .animation-delay-150 {
+    animation-delay: 150ms;
+  }
+  
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+  
+  .animation-delay-500 {
+    animation-delay: 500ms;
+  }
+  
+  .animation-delay-700 {
+    animation-delay: 700ms;
+  }
+}

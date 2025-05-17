@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" fill="none">
+  <rect width="60" height="60" rx="12" fill="#0F172A" />
+  <defs>
+    <linearGradient id="flowGradient" x1="12" y1="15" x2="48" y2="45" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stopColor="#3A7BD5" />
+      <stop offset="100%" stopColor="#00D2FF" />
+    </linearGradient>
+  </defs>
+  <text x="12" y="38" fill="#fff" fontSize="24" fontWeight="bold" fontFamily="Inter, sans-serif">R</text>
+  <text x="24" y="38" fill="url(#flowGradient)" fontSize="24" fontWeight="bold" fontFamily="Inter, sans-serif">F</text>
+  <rect x="24" y="40" width="16" height="3" rx="1.5" fill="url(#flowGradient)" opacity="0.7" />
+</svg> 

@@ -1,0 +1,1 @@
+{"properties":{"value":{"anyOf":[{"type":"string"},{"type":"integer"},{"type":"number"},{"type":"boolean"}],"title":"Value"},"name":{"type":"string","title":"Name"}},"type":"object","required":["value","name"],"title":"FieldValue","description":"Значение поля","x-readme-ref-name":"FieldValue"}

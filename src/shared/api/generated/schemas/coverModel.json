@@ -1,0 +1,1 @@
+{"properties":{"high":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"High"},"low":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Low"},"mid":{"anyOf":[{"type":"string"},{"type":"null"}],"title":"Mid"}},"type":"object","title":"CoverModel","x-readme-ref-name":"CoverModel"}
